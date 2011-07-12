@@ -27,6 +27,10 @@ Ideone is a pastebin, as well as an online compiler and debugger. This project i
 
 To run the test suite, please fill out USER and PASS in test/test_ideone-ruby-api.rb
 
+== TODO
+
+* Remove the junk in hashes returned from Savon.
+
 == Contributing to ideone-ruby-api
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
