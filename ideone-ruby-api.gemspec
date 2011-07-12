@@ -5,11 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ideone-ruby-api}
-  s.version = "1.1.0"
+  s.version = "1.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kenny Meyer"]
   s.date = %q{2011-07-12}
+  s.description = %q{A better Ruby binding for the Ideone API }
   s.email = %q{knny.myer@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -23,7 +24,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "ideone-ruby-api.gemspec",
-    "lib/ideone-ruby-api.rb",
+    "lib/ideone.rb",
     "test/helper.rb",
     "test/test_ideone-ruby-api.rb"
   ]
@@ -42,6 +43,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<test-unit>, ["~> 2.3"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
     else
       s.add_dependency(%q<savon>, [">= 0"])
@@ -49,6 +51,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<test-unit>, ["~> 2.3"])
       s.add_dependency(%q<rspec>, [">= 0"])
     end
   else
@@ -57,6 +60,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<test-unit>, ["~> 2.3"])
     s.add_dependency(%q<rspec>, [">= 0"])
   end
 end
