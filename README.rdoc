@@ -4,7 +4,7 @@ Ideone is a pastebin, as well as an online compiler and debugger. This project i
 
 == Usage
 
-TODO. Please, see tests.
+Please, see tests.
 
 == Contributing to ideone-ruby-api
  
