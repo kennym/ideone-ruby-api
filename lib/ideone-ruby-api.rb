@@ -7,9 +7,11 @@
 # License::   Distributes under the same terms as Ruby
 
 require 'savon' # SOAP Client
+require 'logger'
+require 'pp'
 
 Savon.configure do |config|
-  config.log = false            # disable logging
+  config.log = false # TODO: Make this a setting
 end
 
 
@@ -33,6 +35,10 @@ class Ideone
       :pass => @password,
     }
     @languages_cache = nil
+    # Set up logger
+    @log = Logger.new(STDOUT)
+    @log.level = Logger::WARN
+
   end
 
   # Create a submission and upload it to Ideone.
@@ -45,7 +51,7 @@ class Ideone
   # * std_input: the string to pass to the program on stdin
   # * run: a boolean flag to signifying if Ideone should compile and
   #        run the program
-  # * private: a boolean flag to toggle visibility of code to others
+  # * is_private: a boolean flag to toggle visibility of code to others
   # 
   # Returns
   # -------
@@ -54,16 +60,16 @@ class Ideone
   # unique id of the program.  The URL of the submission is
   # http://ideone.com/LINK.
   def create_submission(source_code, lang_id, std_input="", run=true,
-                        private=false)
+                        is_private=false)
     request_body = @request_body
     request_body[:sourceCode] = source_code
     request_body[:language] = lang_id
     request_body[:input] = std_input
     request_body[:run] = run
-    request_body[:private] = private
+    request_body[:private] = is_private
     response = @client.request :createSubmission, :body => @request_body
 
-    return response.to_hash[:create_submission_response][:return][:item]
+    return pp response.to_hash[:create_submission_response][:return][:item]
   end
 
   # Given the unique link of a submission, returns its current status.
@@ -104,7 +110,7 @@ class Ideone
     request_body[:link] = link
     response = @client.request :getSubmissionStatus, :body => request_body
     
-    return response.to_hash[:get_submission_status][:return][:item]
+    return pp response.to_hash[:get_submission_status_response][:return][:item]
   end
 
   # Return a hash of requested details about a submission with the id
@@ -120,20 +126,26 @@ class Ideone
   # * with_stderr: request the error output
   # * with_cmpinfo: request compilation flags
   def submission_details(link,
-                        with_source=true,
-                        with_input=true,
-                        with_output=true,
-                        with_stderr=true,
-                        with_cmpinfo=true)
+                         with_source=true,
+                         with_input=true,
+                         with_output=true,
+                         with_stderr=true,
+                         with_cmpinfo=true)
     request_body = @request_body
+    request_body[:link] = link
     request_body[:withSource] = with_source
     request_body[:withInput] = with_input
     request_body[:withOutput] = with_output
     request_body[:withStderr] = with_stderr
     request_body[:withCmpinfo] = with_cmpinfo
-    response = @client.request :getSubmissionDetails, :body => request_body
+    begin
+      response = @client.request :getSubmissionDetails, :body => request_body
+    rescue Savon::SOAP::Fault => fault
+      @log.warn fault.to_s
+      raise fault
+    end
     
-    return response.to_hash[:get_submission_details][:return][:item]
+    return pp response.to_hash[:get_submission_details_response][:return][:item]
   end
 
   # Get a list of supported languages and cache it.
@@ -142,15 +154,14 @@ class Ideone
       response = @client.request :getLanguages, :body => @request_body
       languages = response.to_hash[:get_languages_response][:return][:item]
       @languages_cache = languages
-      return languages
     end
-    return @languages_cache
+    return pp @languages_cache
   end
   
   # A test function that always returns the same thing.
   def test
     response = @client.request :testFunction, :body => @request_body
     
-    return response.to_hash[:test_function_response][:return][:item]
+    return pp response.to_hash[:test_function_response][:return][:item]
   end
 end
