@@ -5,12 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ideone-ruby-api}
-  s.version = "1.0.1"
+  s.version = "1.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kenny Meyer"]
   s.date = %q{2011-07-11}
-  s.description = %q{TODO: longer description of your gem}
   s.email = %q{knny.myer@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
