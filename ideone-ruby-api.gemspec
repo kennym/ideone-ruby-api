@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ideone-ruby-api}
-  s.version = ""
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kenny Meyer"]
@@ -22,6 +22,8 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
+    "VERSION",
+    "ideone-ruby-api.gemspec",
     "lib/ideone-ruby-api.rb",
     "test/helper.rb",
     "test/test_ideone-ruby-api.rb"
