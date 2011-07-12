@@ -1,7 +1,7 @@
 require 'helper'
 
-USER = 'humpydumpy'
-PASS = 'testing'
+USER = '' # YOUR IDEONE USER
+PASS = '' # YOUR IDEONE PASSWORD
 
 class TestIdeoneRubyApi < Test::Unit::TestCase
   def test_initialize
