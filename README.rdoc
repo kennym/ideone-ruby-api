@@ -4,7 +4,28 @@ Ideone is a pastebin, as well as an online compiler and debugger. This project i
 
 == Usage
 
-Please, see tests.
+   require 'ideone'
+
+   # Authenticate with Ideone
+   i = Ideone('username', 'password')
+
+   # Create submission
+   source_code = "puts 'hello, world'"
+   i.create_submission(source_code,
+                       17) # Ruby
+
+   # Get submission status
+   i.submission_status("XXXXX")
+
+   # Get all available languages
+   i.languages()
+
+   # Test
+   i.test()   
+
+== Running test suite
+
+To run the test suite, please fill out USER and PASS in test/test_ideone-ruby-api.rb
 
 == Contributing to ideone-ruby-api
  
