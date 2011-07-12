@@ -1,6 +1,10 @@
 = ideone-ruby-api
 
-Description goes here.
+Ideone is a pastebin, as well as an online compiler and debugger. This project is a Ruby binding to the Ideone API.
+
+== Usage
+
+TODO. Please, see tests.
 
 == Contributing to ideone-ruby-api
  
