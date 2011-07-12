@@ -18,7 +18,6 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/kennym/ideone-ruby-api"
   gem.license = "MIT"
   gem.summary = "Ruby binding for Ideone API"
-  gem.description = %Q{TODO: longer description of your gem}
   gem.email = "knny.myer@gmail.com"
   gem.authors = ["Kenny Meyer"]
   # dependencies defined in Gemfile
