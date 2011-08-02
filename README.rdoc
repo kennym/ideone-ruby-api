@@ -36,7 +36,7 @@ Ideone is a pastebin, as well as an online compiler and debugger. This project i
        "answerToLifeAndEverything"=>"42",
        "oOok"=>true} 
 
-== Running test suite
+== Running the test suite
 
 To run the test suite, please fill out USER and PASS in test/test_ideone-ruby-api.rb
 
