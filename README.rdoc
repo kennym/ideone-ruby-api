@@ -7,29 +7,40 @@ Ideone is a pastebin, as well as an online compiler and debugger. This project i
    require 'ideone'
 
    # Authenticate with Ideone
-   i = Ideone('username', 'password')
-
+   i = Ideone.new('username', 'password')
+   => #<Ideone:0x000000021dfd88 ... >
+  
    # Create submission
    source_code = "puts 'hello, world'"
    i.create_submission(source_code,
                        17) # Ruby
+   => 'TOKEN'
 
    # Get submission status
-   i.submission_status("XXXXX")
+   i.submission_status("TOKEN")
+   => {:status=>0, :result=>15}
 
    # Get all available languages
-   i.languages()
+   i.languages
+   => [{:key=>"7", :value=>"Ada (gnat-4.3.2)"},
+       {:key=>"13", :value=>"Assembler (nasm-2.07)"},
+       ...
+       {:key=>"104", :value=>"AWK (gawk) (gawk-3.1.6)"},
+       {:key=>"6", :value=>"Whitespace (wspace 0.3)"}]
 
-   # Test
-   i.test()   
+   # Test that everything's working
+   i.test
+   => {"error"=>"OK",
+       "moreHelp"=>"ideone.com",
+       "pi"=>"3.14",
+       "answerToLifeAndEverything"=>"42",
+       "oOok"=>true} 
 
 == Running test suite
 
 To run the test suite, please fill out USER and PASS in test/test_ideone-ruby-api.rb
 
-== TODO
-
-* Remove the junk in hashes returned from Savon.
+Then, you can run `rake test`
 
 == Contributing to ideone-ruby-api
  
