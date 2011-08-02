@@ -1,6 +1,7 @@
 = ideone-ruby-api
 
-Ideone is a pastebin, as well as an online compiler and debugger. This project is a Ruby binding to the Ideone API.
+Ideone is a pastebin, as well as an online compiler and debugger. This
+project is a Ruby binding to the Ideone API.
 
 == Usage
 
@@ -35,6 +36,16 @@ Ideone is a pastebin, as well as an online compiler and debugger. This project i
        "pi"=>"3.14",
        "answerToLifeAndEverything"=>"42",
        "oOok"=>true} 
+
+== Similar projects
+
+ - https://github.com/maveonair/ccpacona
+ - https://github.com/jonathanperret/ideone.rb
+ - https://github.com/Pistos/ideone-gem/blob/master/lib/ideone.rb
+
+I stole the best ideas from each of the above projects, which, I
+think, makes it much more robust, and it includes tests (which
+actually pass).
 
 == Running the test suite
 
