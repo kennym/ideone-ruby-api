@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kenny Meyer"]
-  s.date = %q{2011-07-12}
+  s.date = %q{2011-08-01}
   s.description = %q{A better Ruby binding for the Ideone API }
   s.email = %q{knny.myer@gmail.com}
   s.extra_rdoc_files = [
@@ -39,29 +39,23 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<savon>, [">= 0"])
-      s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<test-unit>, ["~> 2.3"])
-      s.add_development_dependency(%q<rspec>, [">= 0"])
     else
       s.add_dependency(%q<savon>, [">= 0"])
-      s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<test-unit>, ["~> 2.3"])
-      s.add_dependency(%q<rspec>, [">= 0"])
     end
   else
     s.add_dependency(%q<savon>, [">= 0"])
-    s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<test-unit>, ["~> 2.3"])
-    s.add_dependency(%q<rspec>, [">= 0"])
   end
 end
 
