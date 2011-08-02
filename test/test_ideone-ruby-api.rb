@@ -20,7 +20,12 @@ class TestIdeoneRubyApi < Test::Unit::TestCase
     instance = Ideone.new(USER, PASS)
 
     result = instance.test
-    puts result
+
+    def compare_intersecting_keys(a, b)
+      (a.keys & b.keys).all? {|k| a[k] == b[k]}
+    end
+
+    assert compare_intersecting_keys(result,{"error"=>"OK", "moreHelp"=>"ideone.com", "pi"=>"3.14", "answerToLifeAndEverything"=>"42", "oOok"=>true}) == true
     assert_not_nil result
   end
 
@@ -31,7 +36,7 @@ class TestIdeoneRubyApi < Test::Unit::TestCase
 
     result = instance.languages
 
-    puts result
+    assert result.count > 10
     assert_not_nil result
   end
 
@@ -45,7 +50,7 @@ puts "This is a test submission created from ideone-ruby-api. https://github.com
     eos
     result = instance.create_submission(code, 17)
 
-    puts result
+    assert result.is_a?(String)
     assert_not_nil result
   end
 
@@ -54,9 +59,11 @@ puts "This is a test submission created from ideone-ruby-api. https://github.com
     
     instance = Ideone.new(USER, PASS)
 
-    result = instance.submission_status("VWMD7")
-    puts result
+    result = instance.submission_status("nDRJO")
+
     assert_not_nil result
+    assert_not_nil result[:status]
+    assert_not_nil result[:result]
   end
   
   def test_submission_details
@@ -64,8 +71,9 @@ puts "This is a test submission created from ideone-ruby-api. https://github.com
     
     instance = Ideone.new(USER, PASS)
 
-    result = instance.submission_details("ZUIWF")
-    puts result
+    result = instance.submission_details("nDRJO")
+
+    assert result.count == 16
     assert_not_nil result
   end
 end
