@@ -39,9 +39,9 @@ project is a Ruby binding to the Ideone API.
 
 == Similar projects
 
- - https://github.com/maveonair/ccpacona
- - https://github.com/jonathanperret/ideone.rb
- - https://github.com/Pistos/ideone-gem/blob/master/lib/ideone.rb
+* https://github.com/maveonair/ccpacona
+* https://github.com/jonathanperret/ideone.rb
+* https://github.com/Pistos/ideone-gem/blob/master/lib/ideone.rb
 
 I stole the best ideas from each of the above projects, which, I
 think, makes it much more robust, and it includes tests (which
@@ -53,6 +53,10 @@ To run the test suite, please fill out USER and PASS in test/test_ideone-ruby-ap
 
 Then, you can run `rake test`
 
+== In the wild
+
+* Nejupy ( https://github.com/kennym/nejupy-ruby )
+
 == Contributing to ideone-ruby-api
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
@@ -62,6 +66,10 @@ Then, you can run `rake test`
 * Commit and push until you are happy with your contribution
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+== References
+
+* http://ideone.com/files/ideone-api.pdf
 
 == Copyright
 
