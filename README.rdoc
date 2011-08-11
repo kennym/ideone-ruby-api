@@ -23,11 +23,8 @@ project is a Ruby binding to the Ideone API.
 
    # Get all available languages
    i.languages
-   => [{:key=>"7", :value=>"Ada (gnat-4.3.2)"},
-       {:key=>"13", :value=>"Assembler (nasm-2.07)"},
-       ...
-       {:key=>"104", :value=>"AWK (gawk) (gawk-3.1.6)"},
-       {:key=>"6", :value=>"Whitespace (wspace 0.3)"}]
+   => {"7"=>"Ada (gnat-4.3.2)", "13"=>"Assembler (nasm-2.07)",
+       "45"=>"Assembler (gcc-4.3.4)", "104"=>"AWK (gawk) (gawk-3.1.6)", ...
 
    # Test that everything's working
    i.test
