@@ -91,7 +91,8 @@ class Ideone
       check_error(response, :get_languages_response)
       
       languages = response.to_hash[:get_languages_response][:return][:item][1][:value][:item]
-      @languages_cache = create_dict(languages)
+      # Create a sorted hash
+      @languages_cache = Hash[*create_dict(languages).sort_by {|k| k[0].to_i}.flatten]
     end
     return @languages_cache
   end
