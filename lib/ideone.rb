@@ -91,7 +91,7 @@ class Ideone
       check_error(response, :get_languages_response)
       
       languages = response.to_hash[:get_languages_response][:return][:item][1][:value][:item]
-      @languages_cache = languages
+      @languages_cache = create_dict(languages)
     end
     return @languages_cache
   end
