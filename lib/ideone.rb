@@ -7,7 +7,6 @@
 # License::   Distributes under the same terms as Ruby
 
 require 'savon' # SOAP Client
-require 'pp'
 
 class Ideone
 
