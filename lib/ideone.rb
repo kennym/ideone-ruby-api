@@ -135,6 +135,9 @@ class Ideone
     items.each do |item|
       key = item[:key]
       value = item[:value]
+      if value == {:"@xsi:type"=>"xsd:string"}
+        value = ""
+      end
       dict[key] = value
     end
     
