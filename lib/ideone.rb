@@ -89,10 +89,10 @@ class Ideone
       response = @client.request :getLanguages, :body => @request_body
 
       check_error(response, :get_languages_response)
-      
+
       languages = response.to_hash[:get_languages_response][:return][:item][1][:value][:item]
       # Create a sorted hash
-      @languages_cache = Hash[*create_dict(languages).sort_by {|k| k[0].to_i}.flatten]
+      @languages_cache = Hash[create_dict(languages).sort_by{|k,v| k.to_i}]
     end
     return @languages_cache
   end
