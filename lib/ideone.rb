@@ -123,7 +123,7 @@ class Ideone
   
   def get_error(response, function_response)
     begin
-     return response[function_response][:return][:item][0][:value]
+      return response[function_response][:return][:item][0][:value]
     rescue
       return response[function_response][:return][:item][:value]
     end
