@@ -9,6 +9,5 @@ gem 'savon'
 group :development do
   gem "bundler"
   gem "jeweler", "~> 1.6.4"
-  gem "rcov", ">= 0"
   gem "test-unit", "~> 2.3"
 end
