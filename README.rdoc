@@ -1,6 +1,6 @@
 = ideone-ruby-api
 
-{<img src="https://secure.travis-ci.org/kennym/ideone-ruby-api.png" />}[http://travis-ci.org/kennym/ideone-ruby-api]
+{<img src="https://secure.travis-ci.org/kennym/ideone-ruby-api.png" />}[http://travis-ci.org/kennym/ideone-ruby-api]{<img src="https://badge.fury.io/rb/ideone-ruby-api.png" alt="Gem Version" />}[http://badge.fury.io/rb/ideone-ruby-api]
 
 Ideone is a pastebin, as well as an online compiler and debugger. This
 project is a Ruby binding to the Ideone API.
