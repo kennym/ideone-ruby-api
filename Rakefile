@@ -12,14 +12,16 @@ end
 require 'rake'
 
 require 'jeweler'
+require './lib/ideone/version.rb'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
+  gem.version = Ideone::Version::STRING
   gem.name = "ideone-ruby-api"
   gem.homepage = "http://github.com/kennym/ideone-ruby-api"
   gem.license = "MIT"
   gem.summary = "Ruby binding for Ideone API"
   gem.description = "A better Ruby binding for the Ideone API "
-  gem.email = "knny.myer@gmail.com"
+  gem.email = "kenny@kennymeyer.net"
   gem.authors = ["Kenny Meyer"]
   # dependencies defined in Gemfile
 end
