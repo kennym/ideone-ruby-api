@@ -6,6 +6,8 @@
 Ideone is a pastebin, as well as an online compiler and debugger. This
 project is a Ruby binding to the Ideone API.
 
+Requires Ruby =>1.9.2
+
 == Usage
 
    require 'ideone'
