@@ -72,6 +72,6 @@ Then, you can run `rake test`
 
 == Copyright
 
-Copyright (c) 2011-2012 Kenny Meyer. See LICENSE.txt for
+Copyright (c) 2011-2014 Kenny Meyer. See LICENSE.txt for
 further details.
 
