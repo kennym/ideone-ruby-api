@@ -14,12 +14,9 @@ class Ideone
     @username = username
     @password = password
     
-    @client = Savon::Client.new do
-      wsdl.document = "http://ideone.com/api/1/service.wsdl"
-    end
+    @client = Savon.client(wsdl: "http://ideone.com/api/1/service.wsdl")
 
     HTTPI.log = false
-    disable_savon_logging()
     
     @request_body = {
       :user => @username,
@@ -36,7 +33,7 @@ class Ideone
     request_body[:input] = std_input
     request_body[:run] = run
     request_body[:private] = is_private
-    response = @client.request :createSubmission, :body => @request_body
+    response = @client.call(:create_submission, :message => @request_body)
 
     check_error(response, :create_submission_response)
     return response.to_hash[:create_submission_response][:return][:item][1][:value]
@@ -45,7 +42,7 @@ class Ideone
   def submission_status(link)
     request_body = @request_body
     request_body[:link] = link
-    response = @client.request :getSubmissionStatus, :body => request_body
+    response = @client.call(:get_submission_status, :message => request_body)
 
     check_error(response, :get_submission_status_response)
 
@@ -73,7 +70,7 @@ class Ideone
     request_body[:withStderr] = with_stderr
     request_body[:withCmpinfo] = with_cmpinfo
 
-    response = @client.request :getSubmissionDetails, :body => request_body
+    response = @client.call(:get_submission_details, :message => request_body)
     
     check_error(response, :get_submission_details_response)
 
@@ -85,7 +82,7 @@ class Ideone
   # Get a list of supported languages and cache it.
   def languages
     unless @languages_cache
-      response = @client.request :getLanguages, :body => @request_body
+      response = @client.call(:get_languages, :message => @request_body)
 
       check_error(response, :get_languages_response)
 
@@ -98,7 +95,7 @@ class Ideone
   
   # A test function that always returns the same thing.
   def test
-    response = @client.request :testFunction, :body => @request_body
+    response = @client.call(:test_function, :message => @request_body)
 
     check_error(response, :test_function_response)
 
@@ -108,12 +105,6 @@ class Ideone
 
   private
 
-  def disable_savon_logging
-    Savon.configure do |config|
-      config.log = false
-    end
-  end
-  
   def check_error(response, function_response)
     error = get_error(response.to_hash, function_response)
     if error != 'OK'

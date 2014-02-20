@@ -59,7 +59,7 @@ puts "This is a test submission created from ideone-ruby-api. https://github.com
     
     instance = Ideone.new(USER, PASS)
 
-    result = instance.submission_status("nDRJO")
+    result = instance.submission_status("PD2kqM")
 
     assert_not_nil result
     assert_not_nil result[:status]
@@ -71,7 +71,7 @@ puts "This is a test submission created from ideone-ruby-api. https://github.com
     
     instance = Ideone.new(USER, PASS)
 
-    result = instance.submission_details("nDRJO")
+    result = instance.submission_details("PD2kqM")
 
     assert result.count == 16
     assert_not_nil result
