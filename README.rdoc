@@ -2,7 +2,7 @@
 
 {<img src="https://secure.travis-ci.org/kennym/ideone-ruby-api.png" />}[http://travis-ci.org/kennym/ideone-ruby-api]
 {<img src="https://badge.fury.io/rb/ideone-ruby-api.png" alt="Gem Version" />}[http://badge.fury.io/rb/ideone-ruby-api]
-{<img src="https://ga-beacon.appspot.com/UA-48308186-1/ideone-ruby-api/README.rdoc" alt="GA analytics" />}[]
+{<img src="https://ga-beacon.appspot.com/UA-48308186-1/ideone-ruby-api/README.rdoc" alt="GA analytics" />}[https://ga-beacon.appspot.com/UA-48308186-1/ideone-ruby-api/README.rdoc]
 
 Ideone is a pastebin, as well as an online compiler and debugger. This
 project is a Ruby binding to the Ideone API.
