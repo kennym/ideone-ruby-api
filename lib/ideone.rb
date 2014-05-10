@@ -68,7 +68,7 @@ module Ideone
       request_body[:withStderr] = with_stderr
       request_body[:withCmpinfo] = with_cmpinfo
 
-      response = call_request(:get_submission_details, :message => request_body)
+      response = call_request(:get_submission_details)
 
       details = response.to_hash[:get_submission_details_response][:return][:item]
 
