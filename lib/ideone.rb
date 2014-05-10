@@ -33,7 +33,7 @@ module Ideone
       request_body[:run] = run
       request_body[:private] = is_private
 
-      response = call_request(:create_submission, :message => @request_body)
+      response = call_request(:create_submission)
 
       return response.to_hash[:create_submission_response][:return][:item][1][:value]
     end
@@ -42,7 +42,7 @@ module Ideone
       request_body = @request_body
       request_body[:link] = link
 
-      response = call_request(:get_submission_status, :message => request_body)
+      response = call_request(:get_submission_status)
 
       status = response.to_hash[:get_submission_status_response][:return][:item][1][:value].to_i
       result = response.to_hash[:get_submission_status_response][:return][:item][2][:value].to_i
@@ -78,7 +78,7 @@ module Ideone
     # Get a list of supported languages and cache it.
     def languages
       unless @languages_cache
-        response = call_request(:get_languages, :message => @request_body)
+        response = call_request(:get_languages)
 
         languages = response.to_hash[:get_languages_response][:return][:item][1][:value][:item]
         # Create a sorted hash
@@ -89,7 +89,7 @@ module Ideone
 
     # A test function that always returns the same thing.
     def test
-      response = call_request(:test_function, :message => @request_body)
+      response = call_request(:test_function)
 
       items = response.to_hash[:test_function_response][:return][:item]
 
@@ -105,9 +105,9 @@ module Ideone
       end
     end
 
-    def call_request(api_endpoint, **params)
+    def call_request(api_endpoint)
       begin
-        response = @client.call(api_endpoint, params)
+        response = @client.call(api_endpoint, :message => @request_body)
       rescue Exception => e
         raise e
       end
