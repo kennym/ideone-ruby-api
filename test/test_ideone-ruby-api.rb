@@ -6,18 +6,18 @@ PASS = 'testing' # YOUR IDEONE PASSWORD
 class TestIdeoneRubyApi < Test::Unit::TestCase
   def test_initialize
     omit_if(USER.empty? || PASS.empty?, "Specify ideone USER and PASS")
-    
-    instance = Ideone.new
+
+    instance = Ideone::Client.new
     assert_not_nil(instance)
-    
-    instance = Ideone.new(USER, PASS)
+
+    instance = Ideone::Client.new(USER, PASS)
     assert_not_nil(instance)
   end
 
   def test_ideone_test
     omit_if(USER.empty? || PASS.empty?, "Specify ideone USER and PASS")
-    
-    instance = Ideone.new(USER, PASS)
+
+    instance = Ideone::Client.new(USER, PASS)
 
     result = instance.test
 
@@ -31,8 +31,8 @@ class TestIdeoneRubyApi < Test::Unit::TestCase
 
   def test_languages
     omit_if(USER.empty? || PASS.empty?, "Specify ideone USER and PASS")
-    
-    instance = Ideone.new(USER, PASS)
+
+    instance = Ideone::Client.new(USER, PASS)
 
     result = instance.languages
 
@@ -42,8 +42,8 @@ class TestIdeoneRubyApi < Test::Unit::TestCase
 
   def test_create_submission
     omit_if(USER.empty? || PASS.empty?, "Specify ideone USER and PASS")
-    
-    instance = Ideone.new(USER, PASS)
+
+    instance = Ideone::Client.new(USER, PASS)
 
     code = <<-eos
 puts "This is a test submission created from ideone-ruby-api. https://github.com/kennym/ideone-gem/blob/master/lib/ideone.rb"
@@ -56,8 +56,8 @@ puts "This is a test submission created from ideone-ruby-api. https://github.com
 
   def test_submission_status
     omit_if(USER.empty? || PASS.empty?, "Specify ideone USER and PASS")
-    
-    instance = Ideone.new(USER, PASS)
+
+    instance = Ideone::Client.new(USER, PASS)
 
     result = instance.submission_status("PD2kqM")
 
@@ -65,11 +65,11 @@ puts "This is a test submission created from ideone-ruby-api. https://github.com
     assert_not_nil result[:status]
     assert_not_nil result[:result]
   end
-  
+
   def test_submission_details
     omit_if(USER.empty? || PASS.empty?, "Specify ideone USER and PASS")
-    
-    instance = Ideone.new(USER, PASS)
+
+    instance = Ideone::Client.new(USER, PASS)
 
     result = instance.submission_details("PD2kqM")
 

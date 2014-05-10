@@ -16,7 +16,11 @@ Requires Ruby =>1.9.2
    # Authenticate with Ideone
    i = Ideone.new('username', 'password')
    => #<Ideone:0x000000021dfd88 ... >
-  
+
+   # Enable logging by setting flag to `true`
+   i = Ideone.new('username', 'password', true)
+   => #<Ideone:0x000000021dfd88 ... >
+
    # Create submission
    source_code = "puts 'hello, world'"
    i.create_submission(source_code,
@@ -38,7 +42,7 @@ Requires Ruby =>1.9.2
        "moreHelp"=>"ideone.com",
        "pi"=>"3.14",
        "answerToLifeAndEverything"=>"42",
-       "oOok"=>true} 
+       "oOok"=>true}
 
 == Similar projects
 
