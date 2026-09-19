@@ -1,47 +1,12 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-require 'rubygems'
-require 'bundler'
-begin
-  Bundler.setup(:default, :development)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
-end
-require 'rake'
+require "bundler/gem_tasks"
+require "rake/testtask"
 
-require 'jeweler'
-require './lib/ideone/version.rb'
-Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.version = Ideone::Version::STRING
-  gem.name = "ideone-ruby-api"
-  gem.homepage = "http://github.com/kennym/ideone-ruby-api"
-  gem.license = "MIT"
-  gem.summary = "Ruby binding for Ideone API"
-  gem.description = "A better Ruby binding for the Ideone API "
-  gem.email = "kenny@kennymeyer.net"
-  gem.authors = ["Kenny Meyer"]
-  # dependencies defined in Gemfile
-end
-Jeweler::RubygemsDotOrgTasks.new
-
-require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+  test.libs << "lib" << "test"
+  test.pattern = "test/**/*_test.rb"
+  test.warning = true
 end
 
-task :default => :test
-
-require 'rdoc/task'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "ideone-ruby-api #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
+task default: :test

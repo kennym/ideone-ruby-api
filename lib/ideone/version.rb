@@ -1,9 +1,11 @@
-class Ideone
-  module Version
-    MAJOR = 2
-    MINOR = 1
-    PATCH = 2
+# frozen_string_literal: true
 
-    STRING = [MAJOR, MINOR, PATCH].compact.join('.')
+module Ideone
+  module Version
+    MAJOR = 3
+    MINOR = 0
+    PATCH = 0
+
+    STRING = [MAJOR, MINOR, PATCH].join(".")
   end
 end
