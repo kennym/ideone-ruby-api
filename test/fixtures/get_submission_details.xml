@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://ideone.com/api/1/service" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/xml-soap" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <ns1:getSubmissionDetailsResponse>
+      <return xsi:type="ns2:Map">
+        <item><key xsi:type="xsd:string">error</key><value xsi:type="xsd:string">OK</value></item>
+        <item><key xsi:type="xsd:string">langId</key><value xsi:type="xsd:int">17</value></item>
+        <item><key xsi:type="xsd:string">langName</key><value xsi:type="xsd:string">Ruby</value></item>
+        <item><key xsi:type="xsd:string">langVersion</key><value xsi:type="xsd:string">ruby 2.5.5</value></item>
+        <item><key xsi:type="xsd:string">time</key><value xsi:type="xsd:float">0.02</value></item>
+        <item><key xsi:type="xsd:string">date</key><value xsi:type="xsd:string">2026-09-19 13:15:00</value></item>
+        <item><key xsi:type="xsd:string">status</key><value xsi:type="xsd:int">0</value></item>
+        <item><key xsi:type="xsd:string">result</key><value xsi:type="xsd:int">15</value></item>
+        <item><key xsi:type="xsd:string">memory</key><value xsi:type="xsd:int">12345</value></item>
+        <item><key xsi:type="xsd:string">signal</key><value xsi:type="xsd:int">0</value></item>
+        <item><key xsi:type="xsd:string">public</key><value xsi:type="xsd:boolean">false</value></item>
+        <item><key xsi:type="xsd:string">source</key><value xsi:type="xsd:string">puts "hello"</value></item>
+        <item><key xsi:type="xsd:string">input</key><value xsi:type="xsd:string"></value></item>
+        <item><key xsi:type="xsd:string">output</key><value xsi:type="xsd:string">hello</value></item>
+        <item><key xsi:type="xsd:string">stderr</key><value xsi:type="xsd:string"></value></item>
+        <item><key xsi:type="xsd:string">cmpinfo</key><value xsi:type="xsd:string"></value></item>
+      </return>
+    </ns1:getSubmissionDetailsResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

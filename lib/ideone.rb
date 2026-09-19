@@ -1,139 +1,145 @@
-# This program is a Ruby API to the Ideone web service. For more
-# information about the Ideone API consult
-# http://ideone.com/files/ideone-api.pdf
-#
-# Author::    Kenny Meyer  (kenny@kennymeyer.net)
-# Copyright:: Copyright (c) 2014
-# License::   Distributes under the same terms as Ruby
+# frozen_string_literal: true
 
-require_relative 'ideone/exceptions'
-require 'savon' # SOAP Client
+# Ruby bindings for the Ideone SOAP API.
+# See https://ideone.com/api/1/service.wsdl
+#
+# Author::    Kenny Meyer (kenny@kennymeyer.net)
+# Copyright:: Copyright (c) 2011-2026
+# License::   MIT
+
+require "savon"
+require_relative "ideone/exceptions"
+require_relative "ideone/version"
 
 module Ideone
-  def self.new(username, password, verbose=false)
-    return Ideone::Client.new(username, password, verbose)
+  def self.new(username, password, verbose = false, **options)
+    Client.new(username, password, verbose, **options)
   end
 
   class Client
-    def initialize(username=nil, password=nil, verbose=false)
-      @client = Savon.client(wsdl: "http://ideone.com/api/1/service.wsdl", log: verbose)
+    WSDL_URL = "https://ideone.com/api/1/service.wsdl"
+
+    def initialize(username = nil, password = nil, verbose = false, wsdl: WSDL_URL)
+      @client = Savon.client(
+        wsdl: wsdl,
+        log: verbose,
+        convert_request_keys_to: :none,
+        follow_redirects: true
+      )
       @languages_cache = nil
-      @request_body = {
-        :user => username,
-        :pass => password,
+      @credentials = {
+        user: username,
+        pass: password
       }
     end
 
-    def create_submission(source_code, lang_id, std_input="", run=true,
-                          is_private=false)
-      request_body = @request_body
-      request_body[:sourceCode] = source_code
-      request_body[:language] = lang_id
-      request_body[:input] = std_input
-      request_body[:run] = run
-      request_body[:private] = is_private
-
-      response = call_request(:create_submission)
-
-      return response.to_hash[:create_submission_response][:return][:item][1][:value]
+    def create_submission(source_code, lang_id, std_input = "", run = true,
+                          is_private = false)
+      map = response_map(
+        call_request(:create_submission, {
+          sourceCode: source_code,
+          language: lang_id,
+          input: std_input,
+          run: run,
+          private: is_private
+        }),
+        :create_submission_response
+      )
+      map["link"]
     end
 
     def submission_status(link)
-      request_body = @request_body
-      request_body[:link] = link
+      map = response_map(
+        call_request(:get_submission_status, { link: link }),
+        :get_submission_status_response
+      )
 
-      response = call_request(:get_submission_status)
+      status = map["status"].to_i
+      result = map["result"].to_i
+      status = -1 if status < 0
 
-      status = response.to_hash[:get_submission_status_response][:return][:item][1][:value].to_i
-      result = response.to_hash[:get_submission_status_response][:return][:item][2][:value].to_i
-
-      if status < 0
-        status = -1
-      end
-
-      return { :status => status, :result => result }
+      { status: status, result: result }
     end
 
     def submission_details(link,
-                           with_source=true,
-                           with_input=true,
-                           with_output=true,
-                           with_stderr=true,
-                           with_cmpinfo=true)
-      request_body = @request_body
-      request_body[:link] = link
-      request_body[:withSource] = with_source
-      request_body[:withInput] = with_input
-      request_body[:withOutput] = with_output
-      request_body[:withStderr] = with_stderr
-      request_body[:withCmpinfo] = with_cmpinfo
-
-      response = call_request(:get_submission_details)
-
-      details = response.to_hash[:get_submission_details_response][:return][:item]
-
-      create_dict(details)
+                           with_source = true,
+                           with_input = true,
+                           with_output = true,
+                           with_stderr = true,
+                           with_cmpinfo = true)
+      response_map(
+        call_request(:get_submission_details, {
+          link: link,
+          withSource: with_source,
+          withInput: with_input,
+          withOutput: with_output,
+          withStderr: with_stderr,
+          withCmpinfo: with_cmpinfo
+        }),
+        :get_submission_details_response
+      )
     end
 
-    # Get a list of supported languages and cache it.
     def languages
-      unless @languages_cache
-        response = call_request(:get_languages)
-
-        languages = response.to_hash[:get_languages_response][:return][:item][1][:value][:item]
-        # Create a sorted hash
-        @languages_cache = Hash[create_dict(languages).sort_by{|k,v| k.to_i}]
+      @languages_cache ||= begin
+        map = response_map(call_request(:get_languages), :get_languages_response)
+        create_dict(array_wrap(nested_items(map["languages"]))).sort_by { |k, _| k.to_i }.to_h
       end
-      return @languages_cache
     end
 
-    # A test function that always returns the same thing.
     def test
-      response = call_request(:test_function)
-
-      items = response.to_hash[:test_function_response][:return][:item]
-
-      return create_dict(items)
+      response_map(call_request(:test_function), :test_function_response)
     end
 
     private
 
+    def call_request(api_endpoint, extra = {})
+      response = @client.call(api_endpoint, message: @credentials.merge(extra))
+      check_error(response, :"#{api_endpoint}_response")
+      response
+    rescue Savon::Error => e
+      raise Error, e.message
+    end
+
     def check_error(response, function_response)
-      error = get_error(response.to_hash, function_response)
-      if error != 'OK'
-        raise Ideone::AuthError, "Invalid Ideone credentials provided"
+      error = response_map(response, function_response)["error"]
+      return if error == "OK"
+
+      if error == "AUTH_ERROR"
+        raise AuthError, "Invalid Ideone credentials provided"
       end
+
+      raise Error, error.to_s
     end
 
-    def call_request(api_endpoint)
-      begin
-        response = @client.call(api_endpoint, :message => @request_body)
-      rescue Exception => e
-        raise e
-      end
-      check_error(response, "#{api_endpoint}_response".to_sym)
-      return response
-    end
+    def response_map(response, function_response)
+      items = response.to_hash.dig(function_response, :return, :item)
+      raise Error, "Unexpected response from Ideone API" if items.nil?
 
-    def get_error(response, function_response)
-      begin
-        return response[function_response][:return][:item][0][:value]
-      rescue
-        return response[function_response][:return][:item][:value]
-      end
+      create_dict(array_wrap(items))
     end
 
     def create_dict(items)
-      dict = {}
-
-      items.each do |item|
-        key = item[:key]
-        value = item[:value]
-        value = "" if value == {:"@xsi:type"=>"xsd:string"}
-        dict[key] = value
+      items.each_with_object({}) do |item, dict|
+        dict[item[:key]] = normalize_value(item[:value])
       end
+    end
 
-      dict
+    def nested_items(value)
+      return value[:item] if value.is_a?(Hash) && value.key?(:item)
+
+      value
+    end
+
+    def array_wrap(value)
+      value.is_a?(Array) ? value : [value]
+    end
+
+    def normalize_value(value)
+      return "" if value.nil?
+      return "" if value.is_a?(Hash) && value.keys.all? { |key| key.to_s.start_with?("@") }
+
+      value
     end
   end
 end

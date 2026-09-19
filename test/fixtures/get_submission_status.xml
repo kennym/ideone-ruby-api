@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://ideone.com/api/1/service" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/xml-soap" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <ns1:getSubmissionStatusResponse>
+      <return xsi:type="ns2:Map">
+        <item><key xsi:type="xsd:string">error</key><value xsi:type="xsd:string">OK</value></item>
+        <item><key xsi:type="xsd:string">status</key><value xsi:type="xsd:int">0</value></item>
+        <item><key xsi:type="xsd:string">result</key><value xsi:type="xsd:int">15</value></item>
+      </return>
+    </ns1:getSubmissionStatusResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
